@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package org.example;
 
 import java.sql.Connection;
@@ -24,36 +19,19 @@ public class DepartmentDAO {
         List<Departments> getAllDepartment = new ArrayList();
         Departments departments = new Departments();
 
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(select);
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(select)) {
 
-            try {
-                ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                while(resultSet.next()) {
-                    departments.setName(resultSet.getString("name"));
-                    departments.setManager(resultSet.getString("manager"));
-                    getAllDepartment.add(departments);
-                }
-            } catch (Throwable var8) {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (Throwable var7) {
-                        var8.addSuppressed(var7);
-                    }
-                }
-
-                throw var8;
+            while (resultSet.next()) {
+                departments.setName(resultSet.getString("name"));
+                departments.setManager(resultSet.getString("manager"));
+                getAllDepartment.add(departments);
             }
 
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (Exception var9) {
-            var9.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         return getAllDepartment;
     }
 
@@ -61,44 +39,29 @@ public class DepartmentDAO {
         String request = "SELECT * FROM department WHERE employee_count >= ?;";
         List<Departments> getAllNumberOfEmployees = new ArrayList();
 
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(request);
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(request)) {
 
-            try {
-                preparedStatement.setInt(1, numberOfEmployees);
-                ResultSet resultSet = preparedStatement.executeQuery();
 
-                while(resultSet.next()) {
-                    Departments departments = new Departments();
-                    departments.setId(resultSet.getInt("id"));
-                    departments.setName(resultSet.getString("name"));
-                    departments.setManager(resultSet.getString("manager"));
-                    departments.setDateCreationDepartment(resultSet.getString("creation_date"));
-                    departments.setNumberEmployees(resultSet.getInt("employee_count"));
-                    departments.setProjects(resultSet.getString("tasks_projects"));
-                    departments.setPhoneNumber(resultSet.getString("phone_number"));
-                    departments.setEmailAddress(resultSet.getString("email"));
-                    getAllNumberOfEmployees.add(departments);
-                }
-            } catch (Throwable var8) {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (Throwable var7) {
-                        var8.addSuppressed(var7);
-                    }
-                }
+            preparedStatement.setInt(1, numberOfEmployees);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                throw var8;
+            while (resultSet.next()) {
+                Departments departments = new Departments();
+                departments.setId(resultSet.getInt("id"));
+                departments.setName(resultSet.getString("name"));
+                departments.setManager(resultSet.getString("manager"));
+                departments.setDateCreationDepartment(resultSet.getString("creation_date"));
+                departments.setNumberEmployees(resultSet.getInt("employee_count"));
+                departments.setProjects(resultSet.getString("tasks_projects"));
+                departments.setPhoneNumber(resultSet.getString("phone_number"));
+                departments.setEmailAddress(resultSet.getString("email"));
+                getAllNumberOfEmployees.add(departments);
             }
 
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (SQLException var9) {
-            var9.printStackTrace();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         return getAllNumberOfEmployees;
     }
 
@@ -106,35 +69,18 @@ public class DepartmentDAO {
         String request = "SELECT * FROM department WHERE name = ?;";
         Departments departments = new Departments();
 
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(request);
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(request)) {
 
-            try {
-                preparedStatement.setString(1, NameDepartment);
-                ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.setString(1, NameDepartment);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                while(resultSet.next()) {
-                    departments.setEmailAddress(resultSet.getString("email"));
-                }
-            } catch (Throwable var8) {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (Throwable var7) {
-                        var8.addSuppressed(var7);
-                    }
-                }
-
-                throw var8;
+            while (resultSet.next()) {
+                departments.setEmailAddress(resultSet.getString("email"));
             }
 
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (SQLException var9) {
-            var9.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         return departments;
     }
 
@@ -179,44 +125,28 @@ public class DepartmentDAO {
     List<Departments> select() {
         String select = "SELECT * FROM department";
         List<Departments> getAllDepartment = new ArrayList();
-        Departments departments = new Departments();
 
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(select);
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(select);) {
 
-            try {
-                ResultSet resultSet = preparedStatement.executeQuery();
 
-                while(resultSet.next()) {
-                    departments.setId(resultSet.getInt("id"));
-                    departments.setName(resultSet.getString("name"));
-                    departments.setManager(resultSet.getString("manager"));
-                    departments.setDateCreationDepartment(resultSet.getString("creation_date"));
-                    departments.setNumberEmployees(resultSet.getInt("employee_count"));
-                    departments.setProjects(resultSet.getString("tasks_projects"));
-                    departments.setPhoneNumber(resultSet.getString("phone_number"));
-                    departments.setEmailAddress(resultSet.getString("email"));
-                    getAllDepartment.add(departments);
-                }
-            } catch (Throwable var8) {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (Throwable var7) {
-                        var8.addSuppressed(var7);
-                    }
-                }
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                throw var8;
+            while (resultSet.next()) {
+                Departments departments = new Departments();
+
+                departments.setId(resultSet.getInt("id"));
+                departments.setName(resultSet.getString("name"));
+                departments.setManager(resultSet.getString("manager"));
+                departments.setDateCreationDepartment(resultSet.getString("creation_date"));
+                departments.setNumberEmployees(resultSet.getInt("employee_count"));
+                departments.setProjects(resultSet.getString("tasks_projects"));
+                departments.setPhoneNumber(resultSet.getString("phone_number"));
+                departments.setEmailAddress(resultSet.getString("email"));
+                getAllDepartment.add(departments);
             }
-
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (Exception var9) {
-            var9.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         return getAllDepartment;
     }
 
@@ -224,42 +154,23 @@ public class DepartmentDAO {
         String request = "SELECT * FROM department WHERE id = ?;";
         Departments departments = new Departments();
 
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(request);
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(request)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            try {
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
-
-                while(resultSet.next()) {
-                    departments.setId(resultSet.getInt("id"));
-                    departments.setName(resultSet.getString("name"));
-                    departments.setManager(resultSet.getString("manager"));
-                    departments.setDateCreationDepartment(resultSet.getString("creation_date"));
-                    departments.setNumberEmployees(resultSet.getInt("employee_count"));
-                    departments.setProjects(resultSet.getString("tasks_projects"));
-                    departments.setPhoneNumber(resultSet.getString("phone_number"));
-                    departments.setEmailAddress(resultSet.getString("email"));
-                }
-            } catch (Throwable var8) {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (Throwable var7) {
-                        var8.addSuppressed(var7);
-                    }
-                }
-
-                throw var8;
+            while (resultSet.next()) {
+                departments.setId(resultSet.getInt("id"));
+                departments.setName(resultSet.getString("name"));
+                departments.setManager(resultSet.getString("manager"));
+                departments.setDateCreationDepartment(resultSet.getString("creation_date"));
+                departments.setNumberEmployees(resultSet.getInt("employee_count"));
+                departments.setProjects(resultSet.getString("tasks_projects"));
+                departments.setPhoneNumber(resultSet.getString("phone_number"));
+                departments.setEmailAddress(resultSet.getString("email"));
             }
-
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (SQLException var9) {
-            var9.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         return departments;
     }
 
@@ -267,38 +178,20 @@ public class DepartmentDAO {
         int updateRowsCount = 0;
         String update = "UPDATE department SET name = ?, manager = ?, creation_date = TO_DATE(?, 'YYYY-MM-DD'), employee_count = ?, tasks_projects = ?, phone_number = ?, email = ? WHERE id = ?;";
 
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(update);
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(update)) {
 
-            try {
-                preparedStatement.setString(1, departments.getName());
-                preparedStatement.setString(2, departments.getManager());
-                preparedStatement.setString(3, departments.getDateCreationDepartment());
-                preparedStatement.setInt(4, departments.getNumberEmployees());
-                preparedStatement.setString(5, departments.getProjects());
-                preparedStatement.setString(6, departments.getPhoneNumber());
-                preparedStatement.setString(7, departments.getEmailAddress());
-                preparedStatement.setInt(8, departments.getId());
-                updateRowsCount = preparedStatement.executeUpdate();
-            } catch (Throwable var8) {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (Throwable var7) {
-                        var8.addSuppressed(var7);
-                    }
-                }
-
-                throw var8;
-            }
-
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (SQLException var9) {
-            var9.printStackTrace();
+            preparedStatement.setString(1, departments.getName());
+            preparedStatement.setString(2, departments.getManager());
+            preparedStatement.setString(3, departments.getDateCreationDepartment());
+            preparedStatement.setInt(4, departments.getNumberEmployees());
+            preparedStatement.setString(5, departments.getProjects());
+            preparedStatement.setString(6, departments.getPhoneNumber());
+            preparedStatement.setString(7, departments.getEmailAddress());
+            preparedStatement.setInt(8, departments.getId());
+            updateRowsCount = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         return updateRowsCount;
     }
 
@@ -306,37 +199,18 @@ public class DepartmentDAO {
         int deleteRowsCount = 0;
         String delete = "DELETE FROM department WHERE name = ? and manager = ? and creation_date = TO_DATE(?, 'YYYY-MM-DD') and employee_count = ? and tasks_projects = ? and phone_number = ? and email = ?";
 
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(delete);
-
-            try {
-                preparedStatement.setString(1, departments.getName());
-                preparedStatement.setString(2, departments.getManager());
-                preparedStatement.setString(3, departments.getDateCreationDepartment());
-                preparedStatement.setInt(4, departments.getNumberEmployees());
-                preparedStatement.setString(5, departments.getProjects());
-                preparedStatement.setString(6, departments.getPhoneNumber());
-                preparedStatement.setString(7, departments.getEmailAddress());
-                deleteRowsCount = preparedStatement.executeUpdate();
-            } catch (Throwable var8) {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (Throwable var7) {
-                        var8.addSuppressed(var7);
-                    }
-                }
-
-                throw var8;
-            }
-
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (SQLException var9) {
-            System.err.println(var9.getMessage());
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(delete);) {
+            preparedStatement.setString(1, departments.getName());
+            preparedStatement.setString(2, departments.getManager());
+            preparedStatement.setString(3, departments.getDateCreationDepartment());
+            preparedStatement.setInt(4, departments.getNumberEmployees());
+            preparedStatement.setString(5, departments.getProjects());
+            preparedStatement.setString(6, departments.getPhoneNumber());
+            preparedStatement.setString(7, departments.getEmailAddress());
+            deleteRowsCount = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         return deleteRowsCount;
     }
 
@@ -344,31 +218,14 @@ public class DepartmentDAO {
         int deleteID = 0;
         String deleteId = "DELETE FROM department WHERE id=?;";
 
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(deleteId);
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(deleteId)) {
 
-            try {
-                preparedStatement.setInt(1, id);
-                deleteID = preparedStatement.executeUpdate();
-            } catch (Throwable var8) {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (Throwable var7) {
-                        var8.addSuppressed(var7);
-                    }
-                }
+            preparedStatement.setInt(1, id);
+            deleteID = preparedStatement.executeUpdate();
 
-                throw var8;
-            }
-
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        } catch (SQLException var9) {
-            System.err.println(var9.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         return deleteID;
     }
 }
