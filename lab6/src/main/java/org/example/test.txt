@@ -1,0 +1,4 @@
+1,qwe1,qwe1,qwe,2003-12-23,address1,123456678,fac2,3,group3
+2,qwe2,qwe2,qwe1,2003-12-23,address2,123456678,fac3,4,group1
+3,qwe3,qwe3,qwe2,2004-12-23,address3,123456678,fac1,2,group2
+4,qwe4,qwe4,qwe3,2005-12-23,address4,123456678,fac2,1,group1
